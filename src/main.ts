@@ -19,7 +19,34 @@ async function main() {
     // })
     // console.log("created new artist ", newArtist);
   }
+  // const newSong = await prisma.song.create({
+  //   data:{
+  //     title: "prisma is fun!",
+  //     content: "getting handy with prisma is kinda overwhemling at first",
+  //     released: true,
+  //     singer:{
+  //       create: {
+  //         email: "lilartist@prisma.com",
+  //         name: "lil_yur_panty"
+  //       }
+  //     }
+  //   }
+  // })
+  const artist2 = await prisma.artist.createMany({
+    data: [
+      {email: "tupacAlive@west-side.com", name: "tupac_shakur"},
+      {email: "marshalMatters@wside.com", name: "m_m"},
+      {email: "nas@est-side.com", name: "nasDaddy"},
+    ]
+  })
 
+  const multipleSongs = await prisma.song.createMany({
+    data: [
+      {title: "california love", released: true,},
+      {title: "california love", released: true,},
+      {title: "california love", released: true,},
+    ]
+  })
   const allArtist = await prisma.artist.findMany({
     include: {songs: true}
   })
