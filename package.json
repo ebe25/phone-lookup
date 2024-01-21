@@ -6,9 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx tsx src/main.ts",
-    "start_backend": "npx tsx src/index.ts",
-    "studio": "npx prisma studio"
+    "studio": "npx prisma studio",
+    "dev": "tsx watch src/index.ts"
   },
   "keywords": [],
   "author": "",

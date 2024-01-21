@@ -94,6 +94,39 @@ app.post("/song", async(req,res)=>{
     })
 })
 
+//	PUT	/song/release/:id	Sets the released field of a song to true.
+app.put("/song/release/:id", async(req,res)=>{
+    const {id} = req.params;
+    const realeasedSong = await prisma.song.update({
+        where: {
+            id: Number(id)
+        },
+        data: {
+            released: true
+        }
+    })
+    res.json({
+        succes: true, 
+        payload: realeasedSong,
+        message: "Song released succesfully",
+    })
+
+
+})
+//6	DELETE	/song/:id	Deletes a song by its database record Id.
+app.delete("/song/:id", async(req,res)=>{
+    const {id} = req.params;
+    const deletedSong = await prisma.song.delete({
+        where: {
+            id: Number(id)
+        }
+    })
+    res.json({
+        success: true,
+        payload: deletedSong,
+        message: "Song deleted succesfully",
+    })
+})
 
 //middleware to send 404, error message if path not found
 //notice it has no next arg called 
