@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+//least name and phone number, along with a password, before
+// using. He can optionally add an email address
+model User {
+  id      Int      @id @default(autoincrement())
+  email   String?   
+  name    String
+  phone_number String
+  password String
+  createdAt DateTime @default(now())
+  contacts Contact[]
+  spammed_contacts Spam[]
+ }
+
+  //contact table has 1-m relationship with user table
+ model Contact {
+  id Int @id @default(autoincrement())
+  contactId Int @unique
+  user User @relation(fields: [contactId],references: [id])
+  name String
+  phone String
+  createdAt DateTime @default(now())
+ }
+
+ //A user should be able to mark a number as spam
+// contact -  random number.
+//1-m realtionship between user and spam
+model Spam{
+  id  Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  phone_number String
+  spamId Int 
+  reported_By User? @relation(fields: [spamId],references: [id])
+}
